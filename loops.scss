@@ -46,3 +46,18 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
 }
 
 @include spans(one two three four);
+
+/**** @content ****/
+@mixin foo($display, $selector){
+  color : red;
+  display : $display;
+  & #{$selector} {
+    @content;
+  }
+}
+
+.block {
+  @include foo(block, '.foo'){
+    color : blue;
+  }
+}
