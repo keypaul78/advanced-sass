@@ -3,4 +3,4 @@ advanced-sass
 
 Some of best practices for writing Sass.
 
-Directive: each ,for
+loops.scss : each , for
