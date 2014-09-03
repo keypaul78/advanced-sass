@@ -48,6 +48,7 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
 @include spans(one two three four);
 
 /**** @content ****/
+//1
 @mixin foo($display, $selector){
   color : red;
   display : $display;
@@ -60,4 +61,29 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
   @include foo(block, '.foo'){
     color : blue;
   }
+}
+
+//2
+@mixin car($selector){
+  color : black;
+  seats : 4;
+  doors : 4;
+  @if $selector == '.van' {
+    & #{$selector}{
+      seats : 6;
+      doors : 6;
+      @content;
+    }
+  } @else {
+    & #{$selector}{
+      @content;
+    }
+  }
+}
+
+.my-car {
+  @include car('.van'){
+    color: red;
+  }
+  engine : diesel;
 }
