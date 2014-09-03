@@ -1,0 +1,25 @@
+//each examples
+$core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
+
+//placeholder
+%core-text-base {
+  font-family : 'roboto', sans-serif; 
+  font-size: 18px;
+  line-height: 20px;
+}
+
+//each with nth (old way)
+@each $core-text in $core-texts {
+  .core-nth-#{nth($core-text,1)} {
+    @extend %core-text-base;
+    color: #{nth($core-text,2)};
+  }
+}
+
+//each with vars (new better way)
+@each $name , $color in $core-texts {
+  .core-var-#{$name} {
+    @extend %core-text-base;
+    color: $color;
+  }
+}
