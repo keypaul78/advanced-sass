@@ -1,4 +1,4 @@
-//each examples
+/**** @each  ****/
 $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
 
 //placeholder
@@ -23,3 +23,26 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
     color: $color;
   }
 }
+
+/**** @for ****/
+@mixin spans($cols) {
+  $col-val : length($cols);
+  @for $i from 1 to $col-val {
+    .span-#{nth($cols , $i)} {
+      width : percentage(1/$col-val) * $i;//some math
+      
+    }
+  }
+}
+//reverse
+@mixin spans($cols) {
+  $col-val : length($cols);
+  @for $i from $col-val through 1 {
+    .span-reverse-#{nth($cols , $i)} {
+      width : percentage(1/$col-val) * $i;//some math
+      
+    }
+  }
+}
+
+@include spans(one two three four);
