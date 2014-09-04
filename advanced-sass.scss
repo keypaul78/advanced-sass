@@ -8,7 +8,7 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
   line-height: 20px;
 }
 
-//each with nth (old way)
+//each with nth
 @each $core-text in $core-texts {
   .core-nth-#{nth($core-text,1)} {
     @extend %core-text-base;
@@ -16,7 +16,7 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
   }
 }
 
-//each with vars (new better way)
+//each with vars (better way)
 @each $name , $color in $core-texts {
   .core-var-#{$name} {
     @extend %core-text-base;
@@ -29,7 +29,7 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
   $col-val : length($cols);
   @for $i from 1 to $col-val {
     .span-#{nth($cols , $i)} {
-      width : percentage(1/$col-val) * $i;//some math
+      width : percentage(1/$col-val) * $i;
       
     }
   }
@@ -39,7 +39,7 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
   $col-val : length($cols);
   @for $i from $col-val through 1 {
     .span-reverse-#{nth($cols , $i)} {
-      width : percentage(1/$col-val) * $i;//some math
+      width : percentage(1/$col-val) * $i;
       
     }
   }
