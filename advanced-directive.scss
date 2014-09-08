@@ -2,17 +2,17 @@
 // Sass (v3.4.3)
 // Compass (v1.0.1)
 // ----
- 
-/**** @each ****/
+
+/**** @each  ****/
 $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
- 
+
 /*placeholder*/
 %core-text-base {
-  font-family : 'roboto', sans-serif;
+  font-family : 'roboto', sans-serif; 
   font-size: 18px;
   line-height: 20px;
 }
- 
+
 /*each with nth (old way)*/
 @each $core-text in $core-texts {
   .core-nth-#{nth($core-text,1)} {
@@ -20,7 +20,7 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
     color: #{nth($core-text,2)};
   }
 }
- 
+
 /*each with vars (new better way)*/
 @each $name , $color in $core-texts {
   .core-var-#{$name} {
@@ -28,13 +28,14 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
     color: $color;
   }
 }
- 
+
 /**** @for ****/
 @mixin spans($cols) {
   $col-val : length($cols);
   @for $i from 1 to $col-val {
     .span-#{nth($cols , $i)} {
       width : percentage(1/$col-val) * $i;//some math
+      
     }
   }
 }
@@ -44,12 +45,13 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
   @for $i from $col-val through 1 {
     .span-reverse-#{nth($cols , $i)} {
       width : percentage(1/$col-val) * $i;//some math
+      
     }
   }
 }
- 
+
 @include spans(one two three four);
- 
+
 /**** @content ****/
 /*1*/
 @mixin foo($display, $selector){
@@ -59,12 +61,13 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
     @content;
   }
 }
- 
+
 .block {
   @include foo(block, '.foo'){
     color : blue;
   }
 }
+  
 /*2*/
 @mixin car($selector){
   color : black;
@@ -77,29 +80,29 @@ $core-texts : (red-text 'red') (blue-text 'blue') (yellow-text 'yellow');
       @content;
     }
   } @else {
-  & #{$selector}{
-  @content;
-  }
+    & #{$selector}{
+      @content;
+    }
   }
 }
- 
+
 .my-car {
   @include car('.van'){
     color: red;
   }
   engine : diesel;
 }
- 
+
 /*****break-points*****/
 $font-size : 14;
- 
+
 @function em($target, $context: $font-size){
   @return ($target/$context) * 1em;
 }
- 
+
 $break-small : em(320);
 $break-large : em(1200);
- 
+
 /*normal way*/
 .profile-pic {
   float:left;
@@ -112,7 +115,7 @@ $break-large : em(1200);
     float:right;
   }
 }
- 
+
 /*better way*/
 @mixin respond-to($media){
   @if $media == handles {
@@ -122,7 +125,7 @@ $break-large : em(1200);
   }
   @else if $media == medium-screens {
     @media only screen and (max-width: $break-small + 1) and (max-width: $break-large - 1){
-    @content;
+      @content;
     }
   }
   @else if $media == wide-screens {
@@ -131,7 +134,7 @@ $break-large : em(1200);
     }
   }
 }
- 
+
 .profile-new-pic {
   float:left;
   width: em(250);
@@ -146,3 +149,118 @@ $break-large : em(1200);
     float:right;
   }
 }
+
+/**** @root  ****/
+/**1**/
+/* normal way */
+.color-swap {
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+  &:hover {
+    animation: color-swap 5s;
+  }
+}
+
+@keyframes color-swap {
+  from {
+    background-color:orange;
+  }
+  to {
+    background-color:red;
+  }
+}
+
+/*better way */
+.color-new-swap {
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+  &:hover {
+    animation: color-swap 5s;
+  }
+  @at-root{
+    @keyframes color-swap {
+    from {
+      background-color:orange;
+    }
+    to {
+      background-color:red;
+    }
+  }
+  }
+}
+
+/**2**/
+/*normal*/
+.foo{
+  @media(min-width:400px){
+    display: flex;
+    @at-root{
+      .foo {
+        display: inline-block;
+      }
+    }
+  }
+}
+/*without feature */
+.foo{
+  @media(min-width:400px){
+    display: flex;
+    @at-root(without: media){
+        display: inline-block;
+    }
+  }
+}
+
+.foo{
+  @media(min-width:400px){
+    display: flex;
+    @at-root(without: rule media){
+        &{
+          display: inline-block;
+        }
+    }
+  }
+}
+
+.foo{
+  @media(min-width:400px){
+    display: flex;
+    @at-root(without: rule media){
+        &-element{
+          display: inline-block;
+          &__modifier {
+            color:orange;
+          }
+        }
+    }
+  }
+}
+
+/*with feature */
+.foo{
+  @media(min-width:400px){
+    display: flex;
+    @at-root(with: rule){
+        .bar {
+          display: inline-block;
+        }
+    }
+  }
+}
+
+.foo{
+  @media(min-width:400px){
+    display: flex;
+    @at-root(with: rule media){
+        .bar {
+          display: inline-block;
+        }
+    }
+  }
+}
+
+
+  
+  
