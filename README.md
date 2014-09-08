@@ -6,4 +6,4 @@ Some of best practices for writing Sass.
 Directive
 ---------
 
-@each , @for , @content
+@each , @for , @content, @root
