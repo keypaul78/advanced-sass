@@ -1,0 +1,59 @@
+/**** color functions ***/
+//button core values
+$font-size: 16;
+$primary: #3277b3;
+$success: #4cb332;
+$warning: #e48901;
+$alert: #c13e24;
+
+//blue button values
+$blue: #3096ff;
+
+//functions
+@function em($target, $context: $font-size){
+  @return ($target / $font-size) * 1em;
+}
+
+//mixins
+// !deafult values
+$button-color: $primary !default;
+$button-text-color: white !default;
+$button-line-height: 32 !default;
+$button-border-radius: 3 !default;
+$button-padding: 30 !default;
+$button-font-size: 24 !default;
+$button-weight: bold !default;
+
+@mixin default-button($color: $button-color, 
+  $line-height: $button-line-height,
+  $radius: $button-border-radius,
+  $padding: $button-padding,
+  $font-size: $button-font-size,
+  $weight: $button-weight){
+  
+  color: white;
+  line-height: em($line-height);
+  border-radius: em($radius);
+  padding: 0 em($padding);
+  font-size: em($font-size);
+  font-weight: $weight;
+}
+
+@mixin flat-button($color: $button-color){
+  @include default-button;
+  $shadow-color: grayscale(transparentize($color, 0.1));
+  background-color: $color;
+  border: 1px solid darken($color, 10%);
+  text-shadow: 0 1px 1px darken($color, 20%);
+  box-shadow: 0 em(2) em(6) 0 $shadow-color;
+  &:hover {
+    background-color: darken($color, 10%);
+  }
+}
+
+.primary {
+  @include flat-button($primary);
+}
+
+//refactoring (next)
+
