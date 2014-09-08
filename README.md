@@ -3,8 +3,14 @@ advanced-sass
 
 Some of best practices for writing Sass.
 
-Directive
+Directives
 ---------
-advanced-directive.scss
+advanced-directives.scss
 
 @each , @for , @content, @root
+
+Functions
+---------
+advanced-functions.scss
+
+color function
