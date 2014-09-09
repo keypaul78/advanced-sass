@@ -11,6 +11,6 @@ advanced-directives.scss
 
 Functions
 ---------
-advanced-functions.scss
+color-functions.scss
 
-color function
+
