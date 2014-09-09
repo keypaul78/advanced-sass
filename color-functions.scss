@@ -1,3 +1,8 @@
+// ----
+// Sass (v3.4.3)
+// Compass (v1.0.1)
+// ----
+
 /**** color functions ***/
 //button core values
 $font-size: 16;
@@ -5,9 +10,6 @@ $primary: #3277b3;
 $success: #4cb332;
 $warning: #e48901;
 $alert: #c13e24;
-
-//blue button values
-$blue: #3096ff;
 
 //functions
 @function em($target, $context: $font-size){
@@ -54,6 +56,47 @@ $button-weight: bold !default;
 .primary {
   @include flat-button($primary);
 }
+.success {
+  @include flat-button($success);
+}
 
-//refactoring (next)
+/*refactoring*/
+//use just one # 
+$font-size: 16;
+$primary: #3277b3;
+$success: adjust_hue($primary , 260);
+$warning: saturate(adjust_hue($primary , 188),43);
+$alert: lighten(saturate(adjust_hue($primary , 162),12),1);
+
+//define a placeholder selector
+%default-button {
+  @include default-button;
+}
+
+//removed default-button from mixin
+@mixin flat-button($color: $button-color){
+  $shadow-color: grayscale(transparentize($color, 0.1));
+  background-color: $color;
+  border: 1px solid darken($color, 10%);
+  text-shadow: 0 1px 1px darken($color, 20%);
+  box-shadow: 0 em(2) em(6) 0 $shadow-color;
+  &:hover {
+    background-color: darken($color, 10%);
+  }
+}
+
+.primary{
+  @extend %default-button;
+  @include flat-button($primary);
+}
+.success {
+  @extend %default-button;
+  @include flat-button($success);
+}
+
+
+
+
+
+
 
